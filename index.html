@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A steampunk-themed location finder by Alan Craik">
+    <meta name="theme-color" content="#b8860b">
+    <title>Finder's Augury - Location Finder</title>
+    
+    <!-- PWA Support -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Finder's Augury">
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="status-bar">
+                <div class="clock" id="clock"></div>
+                <div class="signal-indicators">
+                    <span class="signal-icon">📶</span>
+                </div>
+            </div>
+            <h1 class="title">FINDER'S AUGURY</h1>
+            <div class="title-decoration">
+                <span class="decoration-line"></span>
+                <span class="compass-icon">🧭</span>
+                <span class="decoration-line"></span>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="location-device">
+                <div class="device-frame">
+                    <button class="chrono-locator-btn" id="locateBtn" aria-label="Activate the Chrono-Locator">
+                        <div class="btn-glow"></div>
+                        <div class="btn-inner">
+                            <svg class="location-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+                                <circle cx="12" cy="9" r="2.5"/>
+                            </svg>
+                        </div>
+                    </button>
+                    <div class="device-label">LOCATION</div>
+                </div>
+                <div class="activation-text">Activate the Chrono-Locator</div>
+            </div>
+
+            <div class="results-container" id="resultsContainer">
+                <div class="result-panel address-panel">
+                    <div class="panel-header">
+                        <span class="panel-icon">📍</span>
+                        <span class="panel-title">Current Location</span>
+                    </div>
+                    <div class="panel-content" id="addressDisplay">
+                        <div class="loading-text">Awaiting activation...</div>
+                    </div>
+                </div>
+
+                <div class="result-panel coordinates-panel">
+                    <div class="panel-header">
+                        <span class="panel-icon">🧭</span>
+                        <span class="panel-title">Coordinates</span>
+                    </div>
+                    <div class="panel-content" id="coordinatesDisplay">
+                        <div class="loading-text">Awaiting activation...</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="loading-overlay" id="loadingOverlay">
+                <div class="loading-spinner"></div>
+                <div class="loading-text">Calibrating Chrono-Locator...</div>
+            </div>
+
+            <div class="error-message" id="errorMessage">
+                <div class="error-content">
+                    <span class="error-icon">⚠️</span>
+                    <span class="error-text" id="errorText"></span>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p class="creator-text">Crafted by Alan Craik</p>
+            <p class="tagline">Discovering the world, one location at a time</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Register service worker for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => console.log('SW registered:', registration))
+                    .catch(err => console.log('SW registration failed:', err));
+            });
+        }
+    </script>
+</body>
+</html>
